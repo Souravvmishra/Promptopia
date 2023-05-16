@@ -13,7 +13,6 @@ export const connectToDB = async () => {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })
-        console.log(mongoose.connection.readyState);
         isConnected = true;
 
     } catch (error) {
