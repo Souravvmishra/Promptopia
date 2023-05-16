@@ -2,7 +2,6 @@ import '@styles/globals.css'
 
 import Nav from '@components/Nav'
 import Provider from '@components/Provider'
-import { SessionProvider } from 'next-auth/react';
 
 
 export const metadata = {
