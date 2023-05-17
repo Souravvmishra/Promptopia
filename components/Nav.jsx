@@ -74,7 +74,7 @@ const Nav = () => {
               </div>
             ) : (
               <>{(
-                <Link className="black_btn" href={`${process.env.NEXTAUTH_URL}/api/auth/signin`} >
+                <Link className="black_btn" href={`/api/auth/signin`} >
                   Sign In
                 </Link>
               )
@@ -126,7 +126,7 @@ const Nav = () => {
             </div>
           ) : (
             <>{
-              <Link className="black_btn" href={`${process.env.NEXTAUTH_URL}/api/auth/signin`} >
+              <Link className="black_btn" href={`/api/auth/signin`} >
                   Sign in
                 </Link>
               // providers && Object.values(providers).map((provider) => {
