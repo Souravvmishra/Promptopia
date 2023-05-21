@@ -10,6 +10,10 @@ const Modal = () => {
   return (
     <>
       <div className="flex justify-center items-center  inset-0 z-10 w-screen h-screen bg-white flex-col gap-4 fixed">
+
+        <button className="absolute top-6 right-6 font-semibold text-xl font-mono">
+          X
+        </button>
         <button
           onClick={() => signIn('google')}
           class=" h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
