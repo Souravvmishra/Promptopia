@@ -6,12 +6,14 @@ import { useState, useEffect } from "react"
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react'
 
 
-const Modal = () => {
+const Modal = ({setModal}) => {
   return (
     <>
       <div className="flex justify-center items-center  inset-0 z-10 w-screen h-screen bg-white flex-col gap-4 fixed">
 
-        <button className="absolute top-6 right-6 font-semibold text-xl font-mono">
+        <button className="absolute top-6 right-10 font-semibold text-xl font-mono"
+        onClick={() => setModal(false)}
+        >
           X
         </button>
         <button
@@ -112,7 +114,7 @@ const Nav = () => {
                   Sign In
                 </button>)
                 :
-                <Modal />
+                <Modal setModal={setModal}/>
               }</>
             )
         }
@@ -170,7 +172,7 @@ const Nav = () => {
                   Sign In
                 </button>)
                 :
-                <Modal />
+                <Modal setModal={setModal}/>
               }
             </>
 
