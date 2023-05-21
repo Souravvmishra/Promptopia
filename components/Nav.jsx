@@ -6,7 +6,32 @@ import { useState, useEffect } from "react"
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react'
 
 
-
+const Modal = () => {
+  return (
+    <>
+      <div className="flex justify-center items-center  inset-0 z-10 w-screen h-screen bg-white flex-col gap-4 fixed">
+        <button
+          onClick={() => signIn('google')}
+          class=" h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+ hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
+          <div class="relative flex items-center space-x-4 justify-center">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" class=" left-0 w-6" alt="google logo" />
+            <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Continue with Google</span>
+          </div>
+        </button>
+        <button
+          onClick={() => signIn('github')}
+          class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+ hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
+          <div class="relative flex items-center space-x-4 justify-center">
+            <img src="https://www.svgrepo.com/show/448225/github.svg" class=" left-0 w-8 " alt="google logo" />
+            <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Continue with Github</span>
+          </div>
+        </button>
+      </div>
+    </>
+  )
+}
 
 
 
@@ -16,6 +41,7 @@ const Nav = () => {
   const { data: session } = useSession();
   const [providers, setProviders] = useState(null)
   const [toggleDropdown, setToggleDropdown] = useState(false)
+  const [modal, setModal] = useState(false)
 
 
   useEffect(() => {
@@ -26,6 +52,8 @@ const Nav = () => {
     setUpProviders();
   }, [])
   return (
+
+
     <nav className="flex-between w-full mb-16 pt-3">
       <Link href={'/'} className="felx gap-2 flex-center" >
         <Image
@@ -48,18 +76,17 @@ const Nav = () => {
         {
           session?.user ?
             (
-
               <div className="flex gap-3 md:gap-5">
                 <Link href={'/create-prompt'}
                   className="black_btn"
                 >
                   Create Post
                 </Link>
-                <button type="button" onClick={signOut} className="outline_btn">
+                <button type="button" onClick={() => {
+                  setModal(false); signOut()
+                }} className="outline_btn ">
                   Sign Out
                 </button>
-
-
 
                 <Link href={'/profile'}>
                   <Image
@@ -73,11 +100,15 @@ const Nav = () => {
 
               </div>
             ) : (
-              <>{(
-                <Link className="black_btn" href={`/api/auth/signin`} >
+              <>{!modal ? (
+
+                <button className="black_btn"
+                  onClick={() => setModal(true)}
+                >
                   Sign In
-                </Link>
-              )
+                </button>)
+                :
+                <Modal />
               }</>
             )
         }
@@ -113,6 +144,7 @@ const Nav = () => {
                     <button
                       type="button"
                       onClick={() => {
+                        setModal(false)
                         setToggleDropdown(false)
                         signOut()
                       }}
@@ -125,23 +157,18 @@ const Nav = () => {
               }
             </div>
           ) : (
-            <>{
-              <Link className="black_btn" href={`/api/auth/signin`} >
-                  Sign in
-                </Link>
-              // providers && Object.values(providers).map((provider) => {
-              //   return (
-              //     <button
-              //       key={provider.name}
-              //       type="button"
-              //       onClick={() => signIn(provider.id)}
-              //       className="black_btn"
-              //     >
-              //       Sign In
-              //     </button >
-              //   )
-              // })
-            }</>
+            <>
+              {!modal ? (
+
+                <button className="black_btn"
+                  onClick={() => setModal(true)}
+                >
+                  Sign In
+                </button>)
+                :
+                <Modal />
+              }
+            </>
 
           )
         }
