@@ -8,7 +8,9 @@ import Profile from "@components/Profile";
 
 const MyProfile = () => {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session } = useSession({
+    required: true
+  });
 
   const [myPosts, setMyPosts] = useState([]);
 
@@ -46,10 +48,11 @@ const MyProfile = () => {
       }
     }
   };
+  console.log(session?.user);
 
   return (
     <Profile
-      name='My'
+      name={`${session?.user.name}'s`}
       desc='Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination'
       data={myPosts}
       handleEdit={handleEdit}
